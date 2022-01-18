@@ -18,6 +18,7 @@ unsigned long previousMillis = 0;
 
 int count = 0;
 
+/* Bitblue class */
 class Bitblue 
 {
   public:
