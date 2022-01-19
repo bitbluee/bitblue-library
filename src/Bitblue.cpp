@@ -3,16 +3,16 @@
 
 Bitblue::Bitblue(int pin)
 {
-  pinMode(pin, OUTPUT);
+  //pinMode(pin, OUTPUT);
   _pin = pin;
   mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
-  topic[] = "topic/test1";
+  topic = "topic/test1";
 }
 
 void Bitblue::begin()
 {
   Serial.begin(115200);
-  pinMode(output,OUTPUT);
+  //pinMode(pin,OUTPUT);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
@@ -23,6 +23,7 @@ void Bitblue::run()
 if (!client.connected()) {
     reconnect();
   }
+  
   
   client.loop();
 
@@ -72,6 +73,26 @@ void Bitblue::onTransaction()
   delay(250);
   //digitalWrite(_pin, LOW);
   //delay(250);  
+}
+
+//added 
+void reconnect() {
+  // Loop until we're reconnected
+  while (!client.connected()) {
+    Serial.print("Attempting MQTT connection...");
+    // Attempt to connect
+    if (client.connect("WiFiClient")) {
+      Serial.println("connected");
+      // Subscribe
+      client.subscribe(topic);
+    } else {
+      Serial.print("failed, rc=");
+      Serial.print(client.state());
+      Serial.println(" try again in 5 seconds");
+      // Wait 5 seconds before retrying
+      delay(5000);
+    }
+  }
 }
 
 void setup_wifi() {
