@@ -1,12 +1,24 @@
 #include "Arduino.h"
 #include "Bitblue.h"
 
+//default
 Bitblue::Bitblue(int pin)
 {
   //pinMode(pin, OUTPUT);
   _pin = pin;
+  //default server
   mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
   topic = "topic/test1";
+}
+
+//user-defined broker
+Bitblue::Bitblue(char* broker, char* topic)
+{
+  //pinMode(pin, OUTPUT);
+  //_pin = pin;
+  //default server
+  mqtt_server = broker;
+  topic = topic;
 }
 
 void Bitblue::begin()
@@ -23,7 +35,6 @@ void Bitblue::run()
 if (!client.connected()) {
     reconnect();
   }
-  
   
   client.loop();
 
@@ -137,8 +148,8 @@ void callback(char* topic, byte* message, unsigned int length) {
   //if (strcmp((char *)message, "dp") == 0) {
   if (messageTemp == "dp") {
     Serial.println("Payment transaction complete....");
-    this.onTransaction();
-//    digitalWrite(output, HIGH);
+    //this->onTransaction();
+    digitalWrite(output, HIGH);
   }
 
   /*if (!strncmp((char *)message, "dpr", 3)) {
