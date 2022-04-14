@@ -6,6 +6,8 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h> 
 
+#define SSID " "
+#define PASSWD " "
 
 int output = 26;
 
@@ -21,6 +23,10 @@ const long interval = 10000;
 unsigned long previousMillis = 0;
 
 int count = 0;
+
+void setup_wifi();
+void callback(char* topic, byte* message, unsigned int length);
+void reconnect();
 
 class Bitblue 
 {
