@@ -6,8 +6,8 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h> 
 
-#define SSID " "
-#define PASSWD " "
+#define SSID "test"
+#define PASSWD "test"
 
 int output = 26;
 
