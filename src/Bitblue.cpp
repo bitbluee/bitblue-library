@@ -1,14 +1,19 @@
 #include "Arduino.h"
 #include "Bitblue.h"
 
-//default
+unsigned long previousMillis = 0;
+int count = 0;
+int output = 26;
+
+//default constructor
 Bitblue::Bitblue(int pin)
 {
   //pinMode(pin, OUTPUT);
   _pin = pin;
   //default server
   mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
-  topic = "topic/test1";
+  //topic = "topic/test1";
+  topic = "lnd/#";
 }
 
 //user-defined broker
@@ -111,9 +116,9 @@ void setup_wifi() {
   // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
-  Serial.println(ssid);
+  Serial.println(SSID);
 
-  WiFi.begin(ssid, pass);
+  WiFi.begin(SSID, PASSWD);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
