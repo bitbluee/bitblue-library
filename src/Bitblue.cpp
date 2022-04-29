@@ -48,7 +48,7 @@ if (!client.connected()) {
   client.loop();
 
   if (flag == 1) {
-    client.publish(topic, "dinvoice");
+    client.publish(topic, "1");
     flag = 0;
   }
 
@@ -79,7 +79,7 @@ if (!client.connected()) {
     //mqttClient.print(payload);
     //mqttClient.endMessage();
 
-    client.publish(topic, "hello world!");
+    //client.publish(topic, "hello world!");
 
     Serial.println();
 
