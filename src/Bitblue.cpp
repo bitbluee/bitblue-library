@@ -104,7 +104,8 @@ void reconnect() {
     if (client.connect("WiFiClient")) {
       Serial.println("connected");
       // Subscribe
-      client.subscribe(topic);
+      //check this
+      client.subscribe("lnd/pdone");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
