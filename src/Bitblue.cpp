@@ -14,7 +14,7 @@ Bitblue::Bitblue(int pin)
   //mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
   mqtt_server = "ec2-3-87-5-120.compute-1.amazonaws.com";
   //topic = "topic/test1";
-  topic = "lnd/#";
+  topic = "lnd/dinvoice";
 }
 
 //user-defined broker
@@ -35,7 +35,7 @@ void Bitblue::begin()
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   //publish invoice as soon as up
-  client.publish(topic, "lnd/dinvoice");
+  client.publish(topic, "dinvoice");
 }
 
 void Bitblue::run()
@@ -159,7 +159,7 @@ void callback(char* topic, byte* message, unsigned int length) {
     //this->onTransaction();
     digitalWrite(output, HIGH);
     //send a new invoice ???
-    client.publish(topic, "lnd/dinvoice");
+    client.publish(topic, "dinvoice");
   }
 
   /*if (!strncmp((char *)message, "dpr", 3)) {
