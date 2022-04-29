@@ -35,7 +35,8 @@ void Bitblue::begin()
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   //publish invoice as soon as up
-  client.publish(topic, "dinvoice");
+  //client.publish(topic, "dinvoice");
+  flag = 1;
 }
 
 void Bitblue::run()
@@ -46,10 +47,10 @@ if (!client.connected()) {
   
   client.loop();
 
-  /*if (flag == 1) {
-    client.publish(topic, "lnd/dinvoice");
+  if (flag == 1) {
+    client.publish(topic, "dinvoice");
     flag = 0;
-  }*/
+  }
 
   unsigned long currentMillis = millis();
 
@@ -78,7 +79,7 @@ if (!client.connected()) {
     //mqttClient.print(payload);
     //mqttClient.endMessage();
 
-    //client.publish(topic, "hello world!");
+    client.publish(topic, "hello world!");
 
     Serial.println();
 
@@ -159,7 +160,8 @@ void callback(char* topic, byte* message, unsigned int length) {
     //this->onTransaction();
     digitalWrite(output, HIGH);
     //send a new invoice ???
-    client.publish(topic, "dinvoice");
+    //client.publish(topic, "dinvoice");
+    flag=1;
   }
 
   /*if (!strncmp((char *)message, "dpr", 3)) {
