@@ -11,7 +11,8 @@ Bitblue::Bitblue(int pin)
   //pinMode(pin, OUTPUT);
   _pin = pin;
   //default server
-  mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
+  //mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
+  mqtt_server = "ec2-3-87-5-120.compute-1.amazonaws.com";
   //topic = "topic/test1";
   topic = "lnd/#";
 }
@@ -33,6 +34,8 @@ void Bitblue::begin()
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
+  //publish invoice as soon as up
+  client.publish(topic, "lnd/dinvoice");
 }
 
 void Bitblue::run()
@@ -43,10 +46,10 @@ if (!client.connected()) {
   
   client.loop();
 
-  if (flag == 1) {
-    client.publish(topic, "dinvoice");
+  /*if (flag == 1) {
+    client.publish(topic, "lnd/dinvoice");
     flag = 0;
-  }
+  }*/
 
   unsigned long currentMillis = millis();
 
@@ -155,6 +158,8 @@ void callback(char* topic, byte* message, unsigned int length) {
     Serial.println("Payment transaction complete....");
     //this->onTransaction();
     digitalWrite(output, HIGH);
+    //send a new invoice ???
+    client.publish(topic, "lnd/dinvoice");
   }
 
   /*if (!strncmp((char *)message, "dpr", 3)) {
