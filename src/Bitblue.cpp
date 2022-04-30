@@ -3,7 +3,7 @@
 
 unsigned long previousMillis = 0;
 int count = 0;
-int output = 26;
+int outp = 26;
 
 //default constructor
 Bitblue::Bitblue(int pin)
@@ -31,6 +31,7 @@ void Bitblue::begin()
 {
   Serial.begin(115200);
   //pinMode(pin,OUTPUT);
+  pinMode(outp,OUTPUT);
   setup_wifi();
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
@@ -159,7 +160,7 @@ void callback(char* topic, byte* message, unsigned int length) {
   if (messageTemp == "dp") {
     Serial.println("Payment transaction complete....");
     //this->onTransaction();
-    digitalWrite(output, HIGH);
+    digitalWrite(outp, HIGH);
     //send a new invoice ???
     //client.publish(topic, "dinvoice");
     flag=1;
