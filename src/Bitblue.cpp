@@ -12,7 +12,7 @@ Bitblue::Bitblue(int pin)
   _pin = pin;
   //default server
   //mqtt_server = "ec2-3-88-174-38.compute-1.amazonaws.com";
-  mqtt_server = "ec2-3-87-5-120.compute-1.amazonaws.com";
+  mqtt_server = "ec2-44-203-160-144.compute-1.amazonaws.com";
   //topic = "topic/test1";
   topic = "lnd/dinvoice";
 }
@@ -52,7 +52,7 @@ if (!client.connected()) {
   client.loop();
 
   if (flag == 1) {
-    client.publish(topic, "1");
+    client.publish(topic, "2"); //device id
     flag = 0;
   }
 
@@ -165,7 +165,7 @@ void callback(char* topic, byte* message, unsigned int length) {
     //this->onTransaction();
     //digitalWrite(outp, HIGH);
     digitalWrite(outp, HIGH);
-    delay(1000);
+    delay(15000);
     digitalWrite(outp, LOW);
     delay(1000);
     //send a new invoice ???
