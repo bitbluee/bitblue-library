@@ -6,8 +6,8 @@
 #include <PubSubClient.h>
 #include <WiFiClient.h> 
 
-#define SSID " "
-#define PASSWD " "
+//#define SSID " "
+//#define PASSWD " "
 
 extern int output;
 
@@ -17,7 +17,7 @@ static long lastMsg = 0;
 static char msg[50];
 static int value = 0;
 static int flag = 0;
-const char topic[] = "lnd/#";
+const char topic[] = "lnd/dinvoice";
 //topic[] = "lnd/#"
 
 const long interval = 10000;
@@ -36,7 +36,7 @@ class Bitblue
     Bitblue(int pin);
     Bitblue(char* broker);
     Bitblue(char* broker, char* topic);
-    void begin();
+    void begin(char* ssid, char* pass);
     void run();
     void onTransaction();
   private:

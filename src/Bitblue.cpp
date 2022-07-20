@@ -27,7 +27,7 @@ Bitblue::Bitblue(char* broker, char* topic)
   topic = topic;
 }
 
-void Bitblue::begin()
+void Bitblue::begin(char* ssid, char* pass)
 {
   Serial.begin(115200);
   //pinMode(pin,OUTPUT);
@@ -35,7 +35,7 @@ void Bitblue::begin()
   pinMode(outp,OUTPUT);
   //digitalWrite(outp,HIGH);
 
-  setup_wifi();
+  setup_wifi(ssid,pass);
   client.setServer(mqtt_server, 1883);
   client.setCallback(callback);
   //publish invoice as soon as up
@@ -120,14 +120,14 @@ void reconnect() {
   }
 }
 
-void setup_wifi() {
+void setup_wifi(char* ssid, char* pass) {
   delay(10);
   // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
-  Serial.println(SSID);
+  Serial.println(ssid);
 
-  WiFi.begin(SSID, PASSWD);
+  WiFi.begin(ssid, pass);
 
   while (WiFi.status() != WL_CONNECTED) {
     delay(500);
